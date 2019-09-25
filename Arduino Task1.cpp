@@ -37,7 +37,7 @@ void loop() {
 
 }
 
-void lightRed(int timer) {
+void lightRed( int timer ) {
 
   digitalWrite( pinRed, HIGH );
   delay( timer );
@@ -45,7 +45,7 @@ void lightRed(int timer) {
 
 }
 
-void lightYellow(int timer) {
+void lightYellow( int timer ) {
 
   digitalWrite( pinYellow, HIGH );
   delay( timer );
@@ -53,7 +53,7 @@ void lightYellow(int timer) {
 
 }
 
-void lightGreen(int timer) {
+void lightGreen( int timer ) {
 
   digitalWrite( pinGreen, HIGH );
   delay( timer );
