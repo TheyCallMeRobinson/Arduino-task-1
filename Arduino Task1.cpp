@@ -27,6 +27,8 @@ void reverse () {
 }
 
 void loop() {
+
+  delayTime = analogRead(pinPotentiometer);
   
   lightRed( delayTime );
   lightYellow( delayTime );
