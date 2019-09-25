@@ -1,34 +1,70 @@
-boolean button;
+#define pinRed 13
+#define pinYellow 12
+#define pinGreen 8
+#define pinButton 3
+#define pinPotentiometer A1
+
+volatile int delayTime = 1000;
+volatile bool flag;
 
 void setup() {
+
+  pinMode( pinRed, OUTPUT );
+  pinMode( pinYellow, OUTPUT );
+  pinMode( pinGreen, OUTPUT );
+  pinMode( pinButton, INPUT_PULLUP );
+  pinMode( pinPotentiometer, INPUT );
+
+  Serial.begin( 9600 );
+
+  attachInterrupt( 1, reverse, FALLING );
+
+}
+
+void reverse () {
   
-  pinMode(13, OUTPUT);
-  pinMode(12, OUTPUT);
-  pinMode(8, OUTPUT);
-  pinMode(2, INPUT_PULLUP);
-  
+  //digitalWrite( pinGreen, LOW );
+  lightGreen( 0 );
+  lightYellow( delayTime );
+  lightRed( delayTime );
+  flag = 1;
+
 }
 
 void loop() {
   
-    button = digitalRead(2);
-    
-    if (!button) {
-    digitalWrite(13,HIGH);
-    delay(1000);
-    digitalWrite(13, LOW);
+  flag = 0;
   
-    digitalWrite(12, HIGH);
-    delay(1000);
-    digitalWrite(12,LOW);
-  
-    digitalWrite(8, HIGH);
-    delay(1000);
-    digitalWrite(8,LOW);
-  
-    digitalWrite(12, HIGH);
-    delay(1000);
-    digitalWrite(12, LOW);
+  if( !flag ){
+    lightRed( delayTime );
   }
+  lightYellow( delayTime );
+  lightGreen( delayTime );
+  lightYellow( delayTime );
 
 }
+
+void lightRed(int timer) {
+
+  digitalWrite( pinRed, HIGH );
+  delay( timer );
+  digitalWrite( pinRed, LOW );
+
+}
+
+void lightYellow(int timer) {
+
+  digitalWrite( pinYellow, HIGH );
+  delay( timer );
+  digitalWrite( pinYellow, LOW );
+
+}
+
+void lightGreen(int timer) {
+
+  digitalWrite( pinGreen, HIGH );
+  delay( timer );
+  digitalWrite( pinGreen, LOW );
+
+}
+
