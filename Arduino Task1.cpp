@@ -5,7 +5,6 @@
 #define pinPotentiometer A1
 
 volatile int delayTime = 1000;
-volatile bool flag;
 
 void setup() {
 
@@ -23,21 +22,13 @@ void setup() {
 
 void reverse () {
   
-  //digitalWrite( pinGreen, LOW );
-  lightGreen( 0 );
-  lightYellow( delayTime );
-  lightRed( delayTime );
-  flag = 1;
+  digitalWrite( pinGreen, LOW );
 
 }
 
 void loop() {
   
-  flag = 0;
-  
-  if( !flag ){
-    lightRed( delayTime );
-  }
+  lightRed( delayTime );
   lightYellow( delayTime );
   lightGreen( delayTime );
   lightYellow( delayTime );
@@ -63,7 +54,7 @@ void lightYellow(int timer) {
 void lightGreen(int timer) {
 
   digitalWrite( pinGreen, HIGH );
-  delay( timer );
+  delay( timer * 10);
   digitalWrite( pinGreen, LOW );
 
 }
