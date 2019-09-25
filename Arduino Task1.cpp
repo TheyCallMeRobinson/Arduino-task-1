@@ -54,7 +54,7 @@ void lightYellow(int timer) {
 void lightGreen(int timer) {
 
   digitalWrite( pinGreen, HIGH );
-  delay( timer * 10);
+  delay( timer );
   digitalWrite( pinGreen, LOW );
 
 }
