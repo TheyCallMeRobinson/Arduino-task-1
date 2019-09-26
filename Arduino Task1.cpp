@@ -17,22 +17,15 @@ void setup() {
 
   Serial.begin( 9600 );
 
-//  attachInterrupt( 1, reverse, FALLING );
-
 }
-
-//void reverse () {
-//  
-//  digitalWrite( PIN_GREEN, LOW );
-//
-//}
 
 void loop() {
 
-  delayTimer = 10 * (analogRead( PIN_POTENTIOMETER ) / 1023);
+  delayTimer = 10000 * ceil( (analogRead( PIN_POTENTIOMETER ) / 1023) );
   if ( delayTimer < 50 ) {
     delayTimer = 50;
   }
+  delayTimer = (int)delayTimer;
   
   lightBulb( delayTimer, "r" );
   lightBulb( delayTimer, "y" );
