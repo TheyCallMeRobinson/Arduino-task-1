@@ -19,7 +19,7 @@ void setup() {
 
 void loop() {
   
-  delayTime = analogRead( PIN_POTENTIOMETER );
+  delayTime = analogRead( PIN_POTENTIOMETER ) * 10;
   
   lightEnable( delayTime, PIN_RED );
   lightEnable( delayTime, PIN_YELLOW );
@@ -68,7 +68,7 @@ void lightEnable( int timer, int modeBulb ) {
         i = timer;
         digitalWrite( PIN_YELLOW, HIGH );
         delay (timer);
-        
+        digitalWrite ( PIN_YELLOW, LOW );
       }
     }
     digitalWrite( PIN_GREEN, LOW );
