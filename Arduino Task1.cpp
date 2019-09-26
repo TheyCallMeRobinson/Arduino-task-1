@@ -5,6 +5,7 @@
 #define PIN_POTENTIOMETER A1
 
 volatile int delayTime = 1000;
+volatile bool flag;
 
 void setup() {
 
@@ -16,61 +17,61 @@ void setup() {
 
   Serial.begin( 9600 );
 
-  attachInterrupt( 1, reverse, FALLING );
+//  attachInterrupt( 1, reverse, FALLING );
 
 }
 
-void reverse () {
-  
-  digitalWrite( PIN_GREEN, LOW );
-
-}
+//void reverse () {
+//  
+//  digitalWrite( PIN_GREEN, LOW );
+//
+//}
 
 void loop() {
 
   delayTime = analogRead( PIN_POTENTIOMETER );
   
-  lightRed( delayTime );
-  lightYellow( delayTime );
+  lightBulb( delayTime, "r" );
+  lightBulb( delayTime, "y" );
   //lightGreen( delayTime );
-  digitalWrite( PIN_GREEN, HIGH);
   
+  digitalWrite( PIN_GREEN, HIGH );
   for (int i = 0; i < delayTime; i++) {
-  	digitalRead(flag1);
-  	if (!flag1) {
-  		delay(1);
-	} else {
-		digitalWrite( PIN_GREEN, LOW );
-		break;
-	}
+    flag = digitalRead( PIN_BUTTON );
+    if (!flag) {
+      delay(1);
+    } else {
+      digitalWrite( PIN_GREEN, LOW );
+      break;
+    }
+  }
+  digitalWrite( PIN_GREEN, LOW );
+  
+  lightBulb( delayTime, "y" );
+
+}
+
+void lightBulb( int timer, char modeBulb ) {
+
+  if (modeBulb = "r"){
+    
+    digitalWrite( PIN_RED, HIGH );
+    delay( timer );
+    digitalWrite( PIN_RED, LOW );
+  
+  } else if (modeBulb = "y") {
+    
+    digitalWrite( PIN_YELLOW, HIGH );
+    delay( timer );
+    digitalWrite( PIN_YELLOW, LOW );
+  
+  } else if (modeBulb = "g") {
+    
+    digitalWrite( PIN_GREEN, HIGH );
+    delay( timer );
+    digitalWrite( PIN_GREEN, LOW );
+  
   }
   
-  digitalWrite( PIN_GREEN, LOW);
-  lightYellow( delayTime );
-
-}
-
-void lightRed( int timer, string modeBulb ) {
-
-  digitalWrite( PIN_RED, HIGH );
-  delay( timer );
-  digitalWrite( PIN_RED, LOW );
-
-}
-
-void lightYellow( int timer ) {
-
-  digitalWrite( PIN_YELLOW, HIGH );
-  delay( timer );
-  digitalWrite( PIN_YELLOW, LOW );
-
-}
-
-void lightGreen( int timer ) {
-
-  digitalWrite( PIN_GREEN, HIGH );
-  delay( timer );
-  digitalWrite( PIN_GREEN, LOW );
-
 }
 
