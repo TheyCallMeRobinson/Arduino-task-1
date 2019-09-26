@@ -32,7 +32,20 @@ void loop() {
   
   lightRed( delayTime );
   lightYellow( delayTime );
-  lightGreen( delayTime );
+  //lightGreen( delayTime );
+  digitalWrite( pinGreen, HIGH);
+  
+  for (int i = 0; i < delayTime; i++) {
+  	digitalRead(flag1);
+  	if (!flag1) {
+  		delay(1);
+	} else {
+		digitalWrite( pinGreen, LOW );
+		break;
+	}
+  }
+  
+  digitalWrite( pinGreen, LOW);
   lightYellow( delayTime );
 
 }
