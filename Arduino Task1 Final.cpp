@@ -2,8 +2,9 @@
 #define PIN_YELLOW 12
 #define PIN_GREEN 8
 #define PIN_BUTTON 3
+#define PIN_POTENTIOMETER A0
 
-volatile int delayTime = 1000;
+volatile int delayTime;
 volatile bool flag;
 
 void setup() {
@@ -12,10 +13,13 @@ void setup() {
   pinMode( PIN_YELLOW, OUTPUT );
   pinMode( PIN_GREEN, OUTPUT );
   pinMode( PIN_BUTTON, INPUT_PULLUP );
+  pinMode( PIN_POTENTIOMETER, INPUT );
 
 }
 
 void loop() {
+  
+  delayTime = analogRead( PIN_POTENTIOMETER );
   
   lightEnable( delayTime, PIN_RED );
   lightEnable( delayTime, PIN_YELLOW );
