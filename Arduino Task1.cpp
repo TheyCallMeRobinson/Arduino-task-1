@@ -4,7 +4,8 @@
 #define PIN_BUTTON 3
 #define PIN_POTENTIOMETER A1
 
-volatile int delayTimer = 1000;
+volatile double delayTimer = 1000;
+volatile int delayTimerInteger;
 volatile bool flag;
 
 void setup() {
@@ -21,17 +22,17 @@ void setup() {
 
 void loop() {
 
-  delayTimer = 10000 * ceil( (analogRead( PIN_POTENTIOMETER ) / 1023) );
+  delayTimer = 10000 * (analogRead( PIN_POTENTIOMETER ) / 1023);
   if ( delayTimer < 50 ) {
     delayTimer = 50;
   }
-  delayTimer = (int)delayTimer;
+  delayTimerInteger = static_cast<int>( std::round(delayTimer) );
   
-  lightBulb( delayTimer, "r" );
-  lightBulb( delayTimer, "y" );
+  lightBulb( delayTimerInteger, PIN_RED );
+  lightBulb( delayTimerInteger, PIN_YELLOW );
   
   digitalWrite( PIN_GREEN, HIGH );
-  for ( int i = 0; i < delayTimer; i++ ) {
+  for ( int i = 0; i < delayTimerInteger; i++ ) {
     
     flag = digitalRead( PIN_BUTTON );
     
@@ -49,25 +50,25 @@ void loop() {
   }
   digitalWrite( PIN_GREEN, LOW );
   
-  lightBulb( delayTimer, "y" );
+  lightBulb( delayTimerInteger, PIN_YELLOW );
 
 }
 
-void lightBulb( int timer, char modeBulb ) {
+void lightBulb( int timer, int modeBulb ) {
 
-  if (modeBulb = "r"){
+  if (modeBulb = PIN_RED){
     
     digitalWrite( PIN_RED, HIGH );
     delay( timer );
     digitalWrite( PIN_RED, LOW );
   
-  } else if (modeBulb = "y") {
+  } else if (modeBulb = PIN_YELLOW) {
     
     digitalWrite( PIN_YELLOW, HIGH );
     delay( timer );
     digitalWrite( PIN_YELLOW, LOW );
   
-  } else if (modeBulb = "g") {
+  } else if (modeBulb = PIN_GREEN) {
     
     digitalWrite( PIN_GREEN, HIGH );
     delay( timer );
