@@ -4,7 +4,7 @@
 #define PIN_BUTTON 3
 #define PIN_POTENTIOMETER A1
 
-volatile int delayTimer = 1000;
+volatile int delayTime = 1000;
 volatile bool flag;
 
 void setup() {
@@ -29,34 +29,25 @@ void setup() {
 
 void loop() {
 
-  delayTimer = 10 * (analogRead( PIN_POTENTIOMETER ) / 1023);
-  if ( delayTimer < 50 ) {
-    delayTimer = 50;
-  }
+  delayTime = analogRead( PIN_POTENTIOMETER );
   
-  lightBulb( delayTimer, "r" );
-  lightBulb( delayTimer, "y" );
+  lightBulb( delayTime, "r" );
+  lightBulb( delayTime, "y" );
+  //lightGreen( delayTime );
   
   digitalWrite( PIN_GREEN, HIGH );
-  for ( int i = 0; i < delayTimer; i++ ) {
-    
+  for (int i = 0; i < delayTime; i++) {
     flag = digitalRead( PIN_BUTTON );
-    
     if (!flag) {
-      
       delay(1);
-    
     } else {
-      
       digitalWrite( PIN_GREEN, LOW );
       break;
-    
     }
-  
   }
   digitalWrite( PIN_GREEN, LOW );
   
-  lightBulb( delayTimer, "y" );
+  lightBulb( delayTime, "y" );
 
 }
 
