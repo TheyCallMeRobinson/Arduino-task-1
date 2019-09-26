@@ -1,14 +1,17 @@
 #define PIN_RED 13
 #define PIN_YELLOW 12
 #define PIN_GREEN 8
+#define PIN_BUTTON 3
 
 volatile int delayTime = 1000;
+volatile bool flag;
 
 void setup() {
 
   pinMode( PIN_RED, OUTPUT );
   pinMode( PIN_YELLOW, OUTPUT );
   pinMode( PIN_GREEN, OUTPUT );
+  pinMode( PIN_BUTTON, INPUT_PULLUP );
 
 }
 
@@ -34,7 +37,16 @@ void lightEnable( int timer, int modeBulb ) {
   if (modeBulb == PIN_YELLOW) {
     
     digitalWrite( PIN_YELLOW, HIGH );
-    delay( timer );
+    for (int i = 0; i < timer; i++) {
+      flag = digitalRead( PIN_BUTTON );
+    
+      if ( flag ) {
+        delay(1);
+      } else {
+        digitalWrite( PIN_YELLOW, LOW );
+        i = timer;
+      }
+    }
     digitalWrite( PIN_YELLOW, LOW );
     
   }
@@ -42,7 +54,19 @@ void lightEnable( int timer, int modeBulb ) {
   if (modeBulb == PIN_GREEN) {
     
     digitalWrite( PIN_GREEN, HIGH );
-    delay( timer );
+    for (int i = 0; i < timer; i++) {
+      flag = digitalRead( PIN_BUTTON );
+    
+      if ( flag ) {
+        delay(1);
+      } else {
+        digitalWrite( PIN_GREEN, LOW );
+        i = timer;
+        digitalWrite( PIN_YELLOW, HIGH );
+        delay (timer);
+        
+      }
+    }
     digitalWrite( PIN_GREEN, LOW );
     
   }
