@@ -30,7 +30,7 @@ void loop() {
 
 void lightEnable( int timer, int modeBulb ) {
 
-  if (modeBulb == PIN_RED){
+  if (modeBulb == PIN_RED) {
     
     digitalWrite( PIN_RED, HIGH );
     delay( timer );
@@ -46,8 +46,9 @@ void lightEnable( int timer, int modeBulb ) {
     
       if ( flag ) {
         delay(1);
-      } else {
+      } else { 
         digitalWrite( PIN_YELLOW, LOW );
+        
         i = timer;
       }
     }
@@ -65,7 +66,9 @@ void lightEnable( int timer, int modeBulb ) {
         delay(1);
       } else {
         digitalWrite( PIN_GREEN, LOW );
+       
         i = timer;
+        
         digitalWrite( PIN_YELLOW, HIGH );
         delay (timer);
         digitalWrite ( PIN_YELLOW, LOW );
